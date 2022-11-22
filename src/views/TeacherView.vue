@@ -4,9 +4,7 @@
     <nav aria-label="breadcrumb" class="my-5">
       <ol class="breadcrumb">
         <li class="breadcrumb-item" aria-current="page">Home</li>
-        <li class="breadcrumb-item active" aria-current="page">
-          Administradores
-        </li>
+        <li class="breadcrumb-item active" aria-current="page">Maestros</li>
       </ol>
     </nav>
     <ui-card class="mt-3 py-2 px-4">
@@ -107,7 +105,7 @@
                 </div>
               </ui-form-field>
             </ui-grid-cell>
-            <ui-grid-cell columns="6" v-if="post">
+            <ui-grid-cell columns="6" v-show="post">
               <ui-form-field :class="[itemClass, 'required']">
                 <label>Contraseña</label>
                 <ui-textfield
@@ -126,7 +124,7 @@
                 </div>
               </ui-form-field>
             </ui-grid-cell>
-            <ui-grid-cell columns="6" v-if="post">
+            <ui-grid-cell columns="6" v-show="post">
               <ui-form-field :class="[itemClass, 'required']">
                 <label>Confirmar Contraseña</label>
                 <ui-textfield
@@ -196,7 +194,7 @@ export default {
       password_confirmation: "",
     });
     onBeforeMount(async () => {
-      const resp = await axios.get("http://127.0.0.1:8000/api/administrators");
+      const resp = await axios.get("http://127.0.0.1:8000/api/teachers");
       const data = await resp.data.data;
       console.log(data);
       administrators.value = data;
@@ -204,16 +202,16 @@ export default {
     const add = () => {
       open.value = true;
       post.value = true;
-      title.value = "Agregar Administrador";
+      title.value = "Agregar Maestros";
       console.log("Agregar...");
     };
     const edit = async (id) => {
       open.value = true;
       post.value = false;
-      title.value = "Editar Administrador";
+      title.value = "Editar Maestros";
       console.log("Editar...");
       const resp = await axios.get(
-        `http://127.0.0.1:8000/api/administrators/${id}/edit`
+        `http://127.0.0.1:8000/api/teachers/${id}/edit`
       );
       console.log(resp.data.data);
       const data = resp.data.data;
@@ -247,7 +245,7 @@ export default {
         if (post.value) {
           console.log("post");
           const response = await axios.post(
-            `http://127.0.0.1:8000/api/administrators`,
+            `http://127.0.0.1:8000/api/teachers`,
             data,
             {
               headers: {
@@ -275,7 +273,7 @@ export default {
         } else {
           console.log("post");
           const response = await axios.put(
-            `http://127.0.0.1:8000/api/administrators/${admintrator.value.id}`,
+            `http://127.0.0.1:8000/api/teachers/${admintrator.value.id}`,
             data,
             {
               headers: {
@@ -325,7 +323,7 @@ export default {
         if (result.isConfirmed) {
           // const userLocalStorage = JSON.parse(localStorage.getItem("user"));
           const response = await axios.delete(
-            `http://127.0.0.1:8000/api/administrators/${id}`,
+            `http://127.0.0.1:8000/api/teachers/${id}`,
             {
               headers: {
                 "Content-Type": `application/json`,
@@ -357,6 +355,7 @@ export default {
     // };
     return {
       menuSidebar,
+      post,
       administrators,
       add,
       edit,
