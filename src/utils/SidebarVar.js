@@ -13,6 +13,11 @@ const sidebar = [
     title: "Maestros",
     icon: "fas fa-school",
   },
+  {
+    href: "/estudiantes",
+    title: "Estudiantes",
+    icon: "fas fa-users",
+  },
 ];
 
 export default sidebar;
