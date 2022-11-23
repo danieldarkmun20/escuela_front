@@ -105,7 +105,10 @@
                 </div>
               </ui-form-field>
             </ui-grid-cell>
-            <ui-grid-cell columns="8">
+            <ui-grid-cell
+              columns="8"
+              v-if="userLocalStorage.user.teacher === null"
+            >
               <ui-form-field :class="[itemClass, 'required']">
                 <ui-select
                   id="full-func-js-select"
@@ -183,6 +186,7 @@ import { onBeforeMount, ref, watch } from "vue";
 import { SidebarMenu } from "vue-sidebar-menu";
 import "vue-sidebar-menu/dist/vue-sidebar-menu.css";
 import sidebarvar from "../utils/SidebarVar";
+import sidebarVarTeacher from "../utils/SidebarVarTeacher";
 import { useVuelidate } from "@vuelidate/core";
 import {
   required,
@@ -198,26 +202,50 @@ export default {
     SidebarMenu,
   },
   setup() {
-    const menuSidebar = ref(sidebarvar);
+    const userLocalStorage = ref(
+      JSON.parse(localStorage.getItem("user")) ?? null
+    );
+    const menuSidebar =
+      userLocalStorage.value.user.teacher !== null
+        ? sidebarVarTeacher
+        : sidebarvar;
     const open = ref(false);
     const post = ref(true);
     const title = ref("");
     const password = ref("");
     const administrators = ref([]);
     const options = ref([]);
+
     const admintrator = ref({
       id: "",
       name: "",
       last_name1: "",
-      teacher_id: "",
+      teacher_id:
+        userLocalStorage.value.user.teacher !== null
+          ? userLocalStorage.value.user.teacher.id
+          : "",
       last_name2: "",
       email: "",
       password: "",
       password_confirmation: "",
     });
+
     onBeforeMount(async () => {
-      const resp = await axios.get("http://127.0.0.1:8000/api/students");
-      const respTeacher = await axios.get("http://127.0.0.1:8000/api/teachers");
+      console.log(userLocalStorage.value);
+      const resp = await axios.get(
+        `http://127.0.0.1:8000/api/${
+          userLocalStorage.value.user.teacher !== null
+            ? `students-teacher/${userLocalStorage.value.user.teacher.id}`
+            : "students"
+        }`,
+        {
+          headers: {
+            "Content-Type": `application/json`,
+            Accept: `application/json`,
+          },
+        }
+      );
+      const respTeacher = await axios.get(`http://127.0.0.1:8000/api/teachers`);
       const data = await resp.data.data;
       const dataT = await respTeacher.data.data;
       console.log(data);
@@ -355,7 +383,11 @@ export default {
         if (result.isConfirmed) {
           // const userLocalStorage = JSON.parse(localStorage.getItem("user"));
           const response = await axios.delete(
-            `http://127.0.0.1:8000/api/students/${id}`,
+            `http://127.0.0.1:8000/api/${
+              userLocalStorage.value.user.teacher !== null
+                ? "students-teacher"
+                : "students"
+            }/${id}`,
             {
               headers: {
                 "Content-Type": `application/json`,
@@ -386,6 +418,7 @@ export default {
     //   title.value = "Agregar Administrador";
     // };
     return {
+      userLocalStorage,
       menuSidebar,
       options,
       post,

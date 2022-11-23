@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import TeacherView from "../views/TeacherView.vue";
+import Login from "../views/LoginView.vue";
 import StudentView from "../views/StudentView.vue";
 import AddStudentByTeacherView from "../views/AddStudentByTeacherView.vue";
 
@@ -27,6 +28,11 @@ const router = createRouter({
       name: "asignaralumnomaestro",
       component: AddStudentByTeacherView,
     },
+    {
+      path: "/login",
+      name: "login",
+      component: Login,
+    },
     // {
     //   path: "/about",
     //   name: "about",
@@ -36,6 +42,15 @@ const router = createRouter({
     //   component: () => import("../views/AboutView.vue"),
     // },
   ],
+});
+
+router.beforeEach(async (to) => {
+  const userResponse = JSON.parse(localStorage.getItem("user"));
+  if (userResponse === null && to.path !== "/login") {
+    return {
+      path: "/login",
+    };
+  }
 });
 
 export default router;
