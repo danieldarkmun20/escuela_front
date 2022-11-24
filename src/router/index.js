@@ -3,6 +3,8 @@ import HomeView from "../views/HomeView.vue";
 import TeacherView from "../views/TeacherView.vue";
 import Login from "../views/LoginView.vue";
 import StudentView from "../views/StudentView.vue";
+import LeccionDetails from "../views/LeccionDetails.vue";
+import LeccionView from "../views/LeccionView.vue";
 import AddStudentByTeacherView from "../views/AddStudentByTeacherView.vue";
 
 const router = createRouter({
@@ -22,6 +24,16 @@ const router = createRouter({
       path: "/estudiantes",
       name: "estudiantes",
       component: StudentView,
+    },
+    {
+      path: "/lecciones",
+      name: "lecciones",
+      component: LeccionView,
+    },
+    {
+      path: "/lecciones/:id",
+      name: "detalleLecciones",
+      component: LeccionDetails,
     },
     {
       path: "/asignar-alumno-maestro",

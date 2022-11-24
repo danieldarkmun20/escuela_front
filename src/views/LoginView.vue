@@ -90,8 +90,10 @@ export default {
         if (response.status === 200) {
           const data = response.data;
           localStorage.setItem("user", JSON.stringify(response.data));
-          if (data.teacher !== null) {
+          if (data.user.teacher !== null) {
             router.push("/estudiantes");
+          } else if (data.user.student !== null) {
+            router.push("/lecciones");
           } else {
             router.push("/");
           }
