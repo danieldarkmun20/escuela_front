@@ -14,10 +14,7 @@
     </ui-card>
     <ui-grid>
       <ui-grid-cell v-for="lesson in lessons" :key="lesson.id"
-        ><ui-card
-          class="demo-card demo-card--photo"
-          v-if="lesson.nivel <= userLocalStorage.nivel"
-        >
+        ><ui-card class="demo-card demo-card--photo">
           <ui-card-content class="demo-card__primary-action">
             <ui-card-media
               square
@@ -42,6 +39,7 @@
           <ui-card-actions>
             <ui-card-icons>
               <ui-icon-button
+                v-if="lesson.nivel > userLocalStorage.user.nivel"
                 @click.prevent="showDetails(lesson.id)"
                 icon="arrow_right_alt"
               ></ui-icon-button>

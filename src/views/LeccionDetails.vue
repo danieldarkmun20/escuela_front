@@ -112,7 +112,7 @@ export default {
         console.log("sda");
         answers.value.push({
           option_id: null,
-          user_id: userLocalStorage.value.user.student.id,
+          user_id: userLocalStorage.value.user.id,
         });
       });
       path.value = `http://127.0.0.1:8000/lessons/lesson_${lesson.value.nivel}/${lesson.value.path}`;
@@ -156,6 +156,14 @@ export default {
               showConfirmButton: false,
               timer: 1500,
             });
+            router.push("/lecciones");
+            console.log(response.data.data);
+            userLocalStorage.value.user.nivel = response.data.data.nivel;
+            localStorage.removeItem("user");
+            localStorage.setItem(
+              "user",
+              JSON.stringify(userLocalStorage.value)
+            );
           }
         } catch (error) {
           Swal.fire({
