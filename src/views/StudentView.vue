@@ -1,12 +1,7 @@
 <template>
   <div class="container-general">
     <sidebar-menu :menu="menuSidebar" :collapsed="true" />
-    <nav aria-label="breadcrumb" class="my-5">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page">Home</li>
-        <li class="breadcrumb-item active" aria-current="page">Estudiantes</li>
-      </ol>
-    </nav>
+    <BreadcrumComponent title="Estudiantes" />
     <ui-card class="mt-3 py-2 px-4">
       <ui-card-actions>
         <ui-button raised @click="add"><ui-icon>add</ui-icon></ui-button>
@@ -172,9 +167,9 @@
     </ui-dialog-content>
     <ui-dialog-actions>
       <ui-form-field>
-        <ui-button outlined>Cancel</ui-button>
+        <ui-button outlined @click.prevent="hideModal">Cancelar</ui-button>
         <ui-button class="mx-2" raised @click.prevent="submit"
-          >Submit</ui-button
+          >Guardar</ui-button
         >
       </ui-form-field>
     </ui-dialog-actions>
@@ -188,6 +183,7 @@ import "vue-sidebar-menu/dist/vue-sidebar-menu.css";
 import sidebarvar from "../utils/SidebarVar";
 import sidebarVarTeacher from "../utils/SidebarVarTeacher";
 import { useVuelidate } from "@vuelidate/core";
+import BreadcrumComponent from "../components/BreadcrumComponent.vue";
 import {
   required,
   email,
@@ -200,6 +196,7 @@ import Swal from "sweetalert2";
 export default {
   components: {
     SidebarMenu,
+    BreadcrumComponent,
   },
   setup() {
     const userLocalStorage = ref(
@@ -412,12 +409,21 @@ export default {
         }
       });
     };
-    // const showModal = () => {
-    //   open.value = true;
-    //   post.value = true;
-    //   title.value = "Agregar Administrador";
-    // };
+    const hideModal = () => {
+      open.value = false;
+      admintrator.value = {
+        id: "",
+        name: "",
+        last_name1: "",
+        last_name2: "",
+        teacher_id: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+      };
+    };
     return {
+      hideModal,
       userLocalStorage,
       menuSidebar,
       options,

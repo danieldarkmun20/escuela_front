@@ -1,15 +1,10 @@
 <template>
   <div class="container-general">
     <sidebar-menu :menu="menuSidebar" :collapsed="true" />
-    <nav aria-label="breadcrumb" class="my-5">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page">Home</li>
-        <li class="breadcrumb-item active" aria-current="page">Lecciones</li>
-      </ol>
-    </nav>
+    <BreadcrumComponent title="Niveles" />
     <ui-card class="mt-3 py-2 px-4">
       <ui-card-content>
-        <h1>Lecciones</h1>
+        <h1>Niveles</h1>
       </ui-card-content>
     </ui-card>
     <ui-grid>
@@ -39,7 +34,7 @@
           <ui-card-actions>
             <ui-card-icons>
               <ui-icon-button
-                v-if="lesson.nivel > userLocalStorage.user.nivel"
+                v-if="userLocalStorage.user.nivel < lesson.nivel"
                 @click.prevent="showDetails(lesson.id)"
                 icon="arrow_right_alt"
               ></ui-icon-button>
@@ -57,9 +52,11 @@ import "vue-sidebar-menu/dist/vue-sidebar-menu.css";
 import sidebarVarStudent from "../utils/SidebarVarStudent";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import BreadcrumComponent from "../components/BreadcrumComponent.vue";
 export default {
   components: {
     SidebarMenu,
+    BreadcrumComponent,
   },
   setup() {
     const router = useRouter();
@@ -110,7 +107,7 @@ export default {
   margin: 0px 10px 0px 80px;
 }
 .demo-card--photo {
-  width: 200px;
+  width: 400px;
 }
 
 .demo-card__media {

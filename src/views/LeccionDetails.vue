@@ -158,7 +158,7 @@ export default {
             });
             router.push("/lecciones");
             console.log(response.data.data);
-            userLocalStorage.value.user.nivel = response.data.data.nivel;
+            userLocalStorage.value.user.nivel = response.data.data.nivel - 1;
             localStorage.removeItem("user");
             localStorage.setItem(
               "user",
