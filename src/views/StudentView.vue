@@ -274,7 +274,7 @@ export default {
       admintrator.value.name = data.user.name;
       admintrator.value.last_name1 = data.user.last_name1;
       admintrator.value.last_name2 = data.user.last_name2;
-      admintrator.value.teacher_id = data.user.teacher_id;
+      admintrator.value.teacher_id = data.teacher_id;
       admintrator.value.email = data.user.email;
     };
     watch(admintrator.value, (newValue) => {
@@ -289,16 +289,24 @@ export default {
       password: { requiredIf: requiredIf(post), minLength: minLength(4) }, // Matches state.contact.email
       password_confirmation: {
         requiredIf: requiredIf(post),
-        sameAsPassword: sameAs(password),
+        sameAsPassword: post.value ? sameAs(password) : null,
       }, // Matches state.contact.email
     };
+    const rulesUpdate = {
+      name: { required }, // Matches state.firstName
+      last_name1: { required }, // Matches state.lastName
+      last_name2: { required }, // Matches state.lastName
+      email: { required, email },
+    };
     const v$ = useVuelidate(rules, admintrator);
+    const vUpdate$ = useVuelidate(rulesUpdate, admintrator);
     const submit = async () => {
       const result = await v$.value.$validate();
+      const update = await vUpdate$.value.$validate();
       const data = Object.assign({}, admintrator.value);
-      if (result) {
-        console.log("mamo");
-        if (post.value) {
+      console.log("mamo");
+      if (post.value) {
+        if (result) {
           console.log("post");
           const response = await axios.post(
             `http://127.0.0.1:8000/api/students`,
@@ -313,7 +321,7 @@ export default {
           if (response.status === 200) {
             Swal.fire({
               icon: "success",
-              title: "Se ha agregado correctamente un atleta",
+              title: "Se ha agregado correctamente",
               showConfirmButton: false,
               timer: 1500,
             });
@@ -326,7 +334,9 @@ export default {
               text: "Algo salio mal!",
             });
           }
-        } else {
+        }
+      } else {
+        if (update) {
           console.log("post");
           const response = await axios.put(
             `http://127.0.0.1:8000/api/students/${admintrator.value.id}`,
@@ -341,7 +351,7 @@ export default {
           if (response.status === 200) {
             Swal.fire({
               icon: "success",
-              title: "Se ha agregado correctamente un atleta",
+              title: "Se ha agregado Editado",
               showConfirmButton: false,
               timer: 1500,
             });
@@ -370,12 +380,12 @@ export default {
     const destroy = async (id) => {
       Swal.fire({
         title: "Estas seguro?",
-        text: "You won't be able to revert this!",
+        text: "No se podra revertir esto!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonText: "Si, Eliminarlo!",
       }).then(async (result) => {
         if (result.isConfirmed) {
           // const userLocalStorage = JSON.parse(localStorage.getItem("user"));
@@ -398,7 +408,7 @@ export default {
             administrators.value = administrators.value.filter(
               (admintrator) => admintrator.id !== id
             );
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            Swal.fire("Eliminado!", "Ha sido Eliminado.", "success");
           } else {
             Swal.fire({
               icon: "error",
