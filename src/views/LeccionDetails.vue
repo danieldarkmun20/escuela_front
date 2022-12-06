@@ -3,7 +3,9 @@
     <sidebar-menu :menu="menuSidebar" :collapsed="true" />
     <nav aria-label="breadcrumb" class="my-5">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page">Home</li>
+        <li class="breadcrumb-item" style="color: #fff" aria-current="page">
+          Home
+        </li>
         <li class="breadcrumb-item active" aria-current="page">Lecciones</li>
       </ol>
     </nav>
@@ -13,10 +15,10 @@
       </ui-card-content>
     </ui-card>
     <ui-card class="mt-3 py-2 px-4">
-      <ui-card-content class="center_video">
+      <ui-card-content class="center_video  d-flex align-items-center">
         <video width="620" height="540" controls>
           <source
-            src="../../public/lessons/2022-11-23 20-44-40.mp4"
+            src="../../public/lessons/XIHMAI_LECCION_1.mp4"
             type="video/mp4"
           />
           Your browser does not support the video tag.
@@ -55,7 +57,11 @@
                 </ui-form-field>
               </ui-grid-cell>
               <ui-grid-cell columns="12">
-                <ui-button class="mx-2" raised @click.prevent="submit"
+                <ui-button
+                  style="background-color: #95c972; color: #fff"
+                  class="mx-2"
+                  raised
+                  @click.prevent="submit"
                   >Submit</ui-button
                 >
               </ui-grid-cell>
@@ -152,7 +158,7 @@ export default {
           if (response.status === 200) {
             Swal.fire({
               icon: "success",
-              title: "Felicidades! Pasaste el Examen ",
+              title: "Felicidades! Pasaste el Nivel ",
               showConfirmButton: false,
               timer: 1500,
             });

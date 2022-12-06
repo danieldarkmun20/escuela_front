@@ -28,7 +28,7 @@
         id="form2Example2"
         class="form-control"
       />
-      <label class="form-label" for="form2Example2">Password</label>
+      <label class="form-label" for="form2Example2">Contraseña</label>
       <div
         class="input-errors"
         v-for="error of v$.password.$silentErrors"
@@ -46,7 +46,7 @@
       @click.prevent="submit"
       class="btn btn-primary btn-block mb-4"
     >
-      Sign in
+      Iniciar Sesion
     </button>
   </form>
 </template>

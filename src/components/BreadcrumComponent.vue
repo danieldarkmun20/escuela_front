@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between align-items-center">
     <nav aria-label="breadcrumb" class="my-5">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page">Home</li>
+        <li class="breadcrumb-item" aria-current="page" style="color: #FFF;">Home</li>
         <li class="breadcrumb-item active" aria-current="page">
           {{ title }}
         </li>

@@ -3,7 +3,9 @@
     <sidebar-menu :menu="menuSidebar" :collapsed="true" />
     <nav aria-label="breadcrumb" class="my-5">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page">Home</li>
+        <li class="breadcrumb-item" style="color: #fff" aria-current="page">
+          Home
+        </li>
         <li class="breadcrumb-item active" aria-current="page">
           Dar de alta a estudiante
         </li>
@@ -37,7 +39,9 @@
             </ui-form-field>
           </ui-grid-cell>
           <ui-grid-cell columns="8">
-            <ui-button @click.prevent="addStudent">Dar de alta</ui-button>
+            <ui-button style="color: #95c972" @click.prevent="addStudent"
+              >Dar de alta</ui-button
+            >
           </ui-grid-cell>
         </ui-grid>
       </ui-card-content>
@@ -183,7 +187,7 @@ export default {
       if (response.status === 200) {
         Swal.fire({
           icon: "success",
-          title: "Se ha agregado correctamente un atleta",
+          title: "Se ha agregado correctamente",
           showConfirmButton: false,
           timer: 1500,
         });

@@ -38,9 +38,15 @@
                 @click.prevent="showDetails(lesson.id)"
                 icon="arrow_right_alt"
               ></ui-icon-button>
+              <p v-else>
+                <span class="badge rounded-pill text-bg-success"
+                  >COMPLETADO</span
+                >
+              </p>
             </ui-card-icons>
-          </ui-card-actions> </ui-card
-      ></ui-grid-cell>
+          </ui-card-actions>
+        </ui-card></ui-grid-cell
+      >
     </ui-grid>
   </div>
 </template>

@@ -4,7 +4,9 @@
     <BreadcrumComponent title="Estudiantes" />
     <ui-card class="mt-3 py-2 px-4">
       <ui-card-actions>
-        <ui-button raised @click="add"><ui-icon>add</ui-icon></ui-button>
+        <ui-button style="background-color: #95c972" raised @click="add"
+          ><ui-icon>add</ui-icon></ui-button
+        >
       </ui-card-actions>
       <ui-card-content>
         <ui-table
@@ -168,7 +170,11 @@
     <ui-dialog-actions>
       <ui-form-field>
         <ui-button outlined @click.prevent="hideModal">Cancelar</ui-button>
-        <ui-button class="mx-2" raised @click.prevent="submit"
+        <ui-button
+          style="background-color: #95c972"
+          class="mx-2"
+          raised
+          @click.prevent="submit"
           >Guardar</ui-button
         >
       </ui-form-field>
@@ -203,7 +209,7 @@ export default {
       JSON.parse(localStorage.getItem("user")) ?? null
     );
     const menuSidebar =
-      userLocalStorage.value.user.teacher !== null
+      userLocalStorage.value?.user?.teacher !== null
         ? sidebarVarTeacher
         : sidebarvar;
     const open = ref(false);
@@ -218,8 +224,8 @@ export default {
       name: "",
       last_name1: "",
       teacher_id:
-        userLocalStorage.value.user.teacher !== null
-          ? userLocalStorage.value.user.teacher.id
+        userLocalStorage.value.user?.teacher !== null
+          ? userLocalStorage.value.user.teacher?.id
           : "",
       last_name2: "",
       email: "",
@@ -231,7 +237,7 @@ export default {
       console.log(userLocalStorage.value);
       const resp = await axios.get(
         `http://127.0.0.1:8000/api/${
-          userLocalStorage.value.user.teacher !== null
+          userLocalStorage.value.user?.teacher !== null
             ? `students-teacher/${userLocalStorage.value.user.teacher.id}`
             : "students"
         }`,
@@ -391,7 +397,7 @@ export default {
           // const userLocalStorage = JSON.parse(localStorage.getItem("user"));
           const response = await axios.delete(
             `http://127.0.0.1:8000/api/${
-              userLocalStorage.value.user.teacher !== null
+              userLocalStorage.value.user?.teacher !== null
                 ? "students-teacher"
                 : "students"
             }/${id}`,
@@ -470,6 +476,10 @@ export default {
           width: 80,
         },
         {
+          value: "Nivel",
+          width: 80,
+        },
+        {
           value: "Email",
           width: 80,
         },
@@ -496,6 +506,12 @@ export default {
           field: "last_name2",
           fn: (data) => {
             return data.user.last_name2;
+          },
+        },
+        {
+          field: "nivel",
+          fn: (data) => {
+            return data.user.nivel;
           },
         },
         {
