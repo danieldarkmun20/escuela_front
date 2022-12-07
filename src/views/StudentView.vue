@@ -391,7 +391,8 @@ export default {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Si, Eliminarlo!",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Aceptar!",
       }).then(async (result) => {
         if (result.isConfirmed) {
           // const userLocalStorage = JSON.parse(localStorage.getItem("user"));

@@ -8,7 +8,9 @@
         id="form2Example1"
         class="form-control"
       />
-      <label class="form-label" for="form2Example1">Correo Electronico</label>
+      <label class="form-label text-white" for="form2Example1"
+        >Correo Electronico</label
+      >
       <div
         class="input-errors"
         v-for="error of v$.email.$silentErrors"
@@ -28,7 +30,9 @@
         id="form2Example2"
         class="form-control"
       />
-      <label class="form-label" for="form2Example2">Contraseña</label>
+      <label class="form-label text-white" for="form2Example2"
+        >Contraseña</label
+      >
       <div
         class="input-errors"
         v-for="error of v$.password.$silentErrors"
