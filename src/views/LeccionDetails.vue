@@ -15,10 +15,17 @@
       </ui-card-content>
     </ui-card>
     <ui-card class="mt-3 py-2 px-4">
-      <ui-card-content class="center_video  d-flex align-items-center">
-        <video width="620" height="540" controls>
+      <ui-card-content class="center_video d-flex align-items-center">
+        <video width="620" height="540" controls v-if="lesson.nivel == 1">
           <source
-            src="../../public/lessons/XIHMAI_LECCION_1.mp4"
+            :src="`../../public/lessons/XIHMAI_LECCION_1.mp4`"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+        <video width="620" height="540" controls v-else-if="lesson.nivel == 2">
+          <source
+            :src="`../../public/lessons/XIHMAI_LECCION_2.mp4`"
             type="video/mp4"
           />
           Your browser does not support the video tag.
@@ -121,6 +128,7 @@ export default {
           user_id: userLocalStorage.value.user.id,
         });
       });
+      console.log(lesson.value);
       path.value = `http://127.0.0.1:8000/lessons/lesson_${lesson.value.nivel}/${lesson.value.path}`;
     });
 
