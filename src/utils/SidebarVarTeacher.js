@@ -13,6 +13,11 @@ const sidebar = [
     title: "Asignar Alumno a un maestro",
     icon: "fas fa-book",
   },
+  {
+    href: "/subir-leccion",
+    title: "Subir Leccion",
+    icon: "fas fa-upload",
+  },
 ];
 
 export default sidebar;

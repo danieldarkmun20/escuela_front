@@ -6,6 +6,7 @@ import StudentView from "../views/StudentView.vue";
 import LeccionDetails from "../views/LeccionDetails.vue";
 import LeccionView from "../views/LeccionView.vue";
 import AddStudentByTeacherView from "../views/AddStudentByTeacherView.vue";
+import SubirLeccion from "../views/SubirLeccion.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: Login,
+    },
+    {
+      path: "/subir-leccion",
+      name: "subirLeccion",
+      component: SubirLeccion,
     },
     // {
     //   path: "/about",
